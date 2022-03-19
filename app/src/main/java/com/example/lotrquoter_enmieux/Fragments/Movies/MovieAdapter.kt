@@ -1,5 +1,6 @@
 package com.example.lotrquoter_enmieux.Fragments.Movies
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,6 +40,7 @@ class MovieAdapter(private val mList: ArrayList<Movie>,
     override fun getItemCount() = mList.size
 
     fun updateData(i: MutableLiveData<MutableList<Movie>>){
+        Log.e(i.value.toString(), "UPDATE DATA")
         i.value?.let { mList.addAll(it) }
     }
 }

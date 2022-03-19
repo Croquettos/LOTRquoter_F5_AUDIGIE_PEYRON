@@ -1,5 +1,6 @@
 package com.example.lotrquoter_enmieux.LotrAPI
 
+import android.util.Log
 import com.example.lotrquoter_enmieux.DTOs.DocsMovie
 import com.example.lotrquoter_enmieux.DTOs.DocsQuote
 import com.example.lotrquoter_enmieux.DTOs.Movie
@@ -51,6 +52,7 @@ class LotrApi {
         val listMovies : MutableList<Movie>? = null
         docsMovie.docs.forEach {
             listMovies?.add(it)
+            Log.e(it.name, "GET MOVIES")
         }
         client.close()
         return listMovies

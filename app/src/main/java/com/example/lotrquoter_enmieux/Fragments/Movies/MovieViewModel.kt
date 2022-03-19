@@ -1,5 +1,6 @@
 package com.example.lotrquoter_enmieux.Fragments.Movies
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -19,5 +20,6 @@ class MovieViewModel : ViewModel() {
 
     suspend fun loadMovies() {
         selected.value = lotrapi.getMovies()
+        Log.e(selected.value.toString(), "SELECTED VALUE")
     }
 }

@@ -1,13 +1,17 @@
 package com.example.lotrquoter_enmieux.Fragments.Quotes
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.annotation.Nullable
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.example.lotrquoter_enmieux.DTOs.Quote
 import com.example.lotrquoter_enmieux.R
+import java.lang.Thread.sleep
+import java.util.*
 
 class QuoteFragment : Fragment() {
 
@@ -25,16 +29,10 @@ class QuoteFragment : Fragment() {
         val character : TextView = view.findViewById<TextView>(R.id.character)
         quoteViewModel.movie_id.observe(this) {
             quoteViewModel.updateData()
-            quoteText.text = quoteViewModel.selected.value!!.dialog
-            character.text = quoteViewModel.selected.value!!.character
+            quoteText.text = quoteViewModel.selected.value?.dialog
+            character.text = quoteViewModel.character.value?.name
         }
         return view
     }
-
-    /*override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(QuoteViewModel::class.java)
-        // TODO: Use the ViewModel
-    }*/
 
 }

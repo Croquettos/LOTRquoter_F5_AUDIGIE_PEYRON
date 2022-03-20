@@ -1,10 +1,7 @@
 package com.example.lotrquoter_enmieux.LotrAPI
 
 import android.util.Log
-import com.example.lotrquoter_enmieux.DTOs.DocsMovie
-import com.example.lotrquoter_enmieux.DTOs.DocsQuote
-import com.example.lotrquoter_enmieux.DTOs.Movie
-import com.example.lotrquoter_enmieux.DTOs.Quote
+import com.example.lotrquoter_enmieux.DTOs.*
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
 import io.ktor.client.features.*
@@ -14,13 +11,14 @@ import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.client.call.*
 import io.ktor.util.*
+import kotlinx.coroutines.isActive
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.random.Random
 
 class LotrApi {
-    suspend fun getRandomQuote(movie : String?): Quote {
-        Log.e("ENTERING", "GET RANDOM QUOTE")
+    suspend fun getRandomQuote(movie_id : String): Quote {
+        Log.e(movie_id, "GET RANDOM QUOTE")
         val client = HttpClient(CIO) {
             install(JsonFeature) {
                 serializer = KotlinxSerializer(kotlinx.serialization.json.Json {
@@ -30,13 +28,16 @@ class LotrApi {
                 })
             }
         }
-        val docsQuote : DocsQuote = client.get("https://the-one-api.dev/v2/movie/" + movie + "/quote") {
-            headers { append("Authorization", "Bearer Yz6TGM2TfN4i91hIs5NS") }
-        }
-        Log.e("ON ARRIVE ICI ?", "GET RANDOM QUOTE")
+        Log.e("client: " + client.isActive, "GET RANDOM QUOTE")
+        val docsQuote: DocsQuote =
+            client.get("https://the-one-api.dev/v2/movie/" + movie_id + "/quote") {
+                headers { append("Authorization", "Bearer Yz6TGM2TfN4i91hIs5NS") }
+            }
+        Log.e("API CALL OK", "GET RANDOM QUOTE")
         client.close()
         Log.e(docsQuote.docs[Random.nextInt(docsQuote.docs.size)].dialog, "GET RANDOM QUOTE")
         return docsQuote.docs[Random.nextInt(docsQuote.docs.size)]
+        //return Quote("Test", "Test", "Test", "Test")
     }
 
     suspend fun getMovies(): MutableList<Movie>? {
@@ -64,5 +65,22 @@ class LotrApi {
         Collections.swap(listMovies, 0, 1)
         client.close()
         return listMovies
+    }
+
+    suspend fun getCharacterById(character_id : String) : LOTRCharacter {
+        val client = HttpClient(CIO) {
+            install(JsonFeature) {
+                serializer = KotlinxSerializer(kotlinx.serialization.json.Json {
+                    prettyPrint = true
+                    isLenient = true
+                    ignoreUnknownKeys = true
+                })
+            }
+        }
+        val docsCharacter : DocsCharacter = client.get("https://the-one-api.dev/v2/character/" + character_id) {
+            headers { append("Authorization", "Bearer Yz6TGM2TfN4i91hIs5NS") }
+        }
+        client.close()
+        return docsCharacter.docs[0]
     }
 }

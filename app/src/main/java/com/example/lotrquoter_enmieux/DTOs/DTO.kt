@@ -3,10 +3,10 @@ package com.example.lotrquoter_enmieux.DTOs
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class  Character(val _id : String, val name : String)
+data class  LOTRCharacter(val _id : String, val name : String)
 
 @Serializable
-data class DocsCharacter(val docs : List<Character>)
+data class DocsCharacter(val docs : List<LOTRCharacter>)
 
 @Serializable
 data class Movie(val _id : String, val name : String)

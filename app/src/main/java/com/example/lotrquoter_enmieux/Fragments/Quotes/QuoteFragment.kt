@@ -7,8 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.lotrquoter_enmieux.Fragments.Movies.MovieAdapter
 import com.example.lotrquoter_enmieux.R
 
 class QuoteFragment : Fragment() {
@@ -25,8 +23,10 @@ class QuoteFragment : Fragment() {
         val quoteViewModel: QuoteViewModel by activityViewModels()
         val quoteText : TextView = view.findViewById<TextView>(R.id.quoteText)
         val character : TextView = view.findViewById<TextView>(R.id.character)
-        quoteViewModel.selected.observe(this) {
-
+        quoteViewModel.movie_id.observe(this) {
+            quoteViewModel.updateData()
+            quoteText.text = quoteViewModel.selected.value!!.dialog
+            character.text = quoteViewModel.selected.value!!.character
         }
         return view
     }

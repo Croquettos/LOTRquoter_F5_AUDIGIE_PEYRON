@@ -38,7 +38,7 @@ class MovieAdapter(private val mList: ArrayList<Movie>,
 
         viewHolder.viewGroup.setOnClickListener {
             Log.e(movie.name, "ON CLICK")
-            fragment.gotoQuote(movie.name)
+            fragment.gotoQuote(movie._id)
         }
 
     }

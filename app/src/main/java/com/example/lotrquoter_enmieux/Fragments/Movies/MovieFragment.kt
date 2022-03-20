@@ -1,16 +1,16 @@
 package com.example.lotrquoter_enmieux.Fragments.Movies
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.lotrquoter_enmieux.DTOs.Movie
+import com.example.lotrquoter_enmieux.Fragments.Quotes.QuoteViewModel
 import com.example.lotrquoter_enmieux.R
 
 class MovieFragment : Fragment() {
@@ -38,6 +38,9 @@ class MovieFragment : Fragment() {
     }
 
     fun gotoQuote(movie_id : String) {
+        Log.e(movie_id, "GO TO QUOTE")
+        val quoteViewModel: QuoteViewModel by activityViewModels()
+        quoteViewModel.movie_id.value = movie_id
         view?.let { Navigation.findNavController(it).navigate(R.id.action_movieFragment_to_quoteFragment) }
     }
 

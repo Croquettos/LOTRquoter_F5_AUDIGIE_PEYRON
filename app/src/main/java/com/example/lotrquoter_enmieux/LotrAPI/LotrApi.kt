@@ -14,25 +14,29 @@ import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.client.call.*
 import io.ktor.util.*
+import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.random.Random
 
 class LotrApi {
-    suspend fun getRandomQuote(movie : String): Quote {
-        Log.e(movie, "GET RANDOM QUOTE")
+    suspend fun getRandomQuote(movie : String?): Quote {
+        Log.e("ENTERING", "GET RANDOM QUOTE")
         val client = HttpClient(CIO) {
             install(JsonFeature) {
                 serializer = KotlinxSerializer(kotlinx.serialization.json.Json {
                     prettyPrint = true
                     isLenient = true
+                    ignoreUnknownKeys = true
                 })
             }
         }
-        val docsQuotes : DocsQuote = client.get("https://the-one-api.dev/v2/movie/" + movie + "/quote") {
+        val docsQuote : DocsQuote = client.get("https://the-one-api.dev/v2/movie/" + movie + "/quote") {
             headers { append("Authorization", "Bearer Yz6TGM2TfN4i91hIs5NS") }
         }
+        Log.e("ON ARRIVE ICI ?", "GET RANDOM QUOTE")
         client.close()
-        Log.e(docsQuotes.docs[Random.nextInt(docsQuotes.docs.size)].dialog, "GET RANDOM QUOTE")
-        return docsQuotes.docs[Random.nextInt(docsQuotes.docs.size)]
+        Log.e(docsQuote.docs[Random.nextInt(docsQuote.docs.size)].dialog, "GET RANDOM QUOTE")
+        return docsQuote.docs[Random.nextInt(docsQuote.docs.size)]
     }
 
     suspend fun getMovies(): MutableList<Movie>? {
@@ -54,6 +58,7 @@ class LotrApi {
         }
         listMovies.removeAt(0)
         listMovies.removeAt(0)
+        Collections.swap(listMovies, 3, 4)
         client.close()
         return listMovies
     }

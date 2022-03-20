@@ -14,6 +14,8 @@ import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.client.call.*
 import io.ktor.util.*
+import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.random.Random
 
 class LotrApi {
@@ -54,6 +56,10 @@ class LotrApi {
         }
         listMovies.removeAt(0)
         listMovies.removeAt(0)
+        listMovies.removeAt(0)
+        listMovies.removeAt(0)
+        listMovies.removeAt(0)
+        Collections.swap(listMovies, 0, 1)
         client.close()
         return listMovies
     }

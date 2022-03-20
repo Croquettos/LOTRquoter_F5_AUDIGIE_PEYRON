@@ -1,6 +1,5 @@
 package com.example.lotrquoter_enmieux.DTOs
 
-import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable

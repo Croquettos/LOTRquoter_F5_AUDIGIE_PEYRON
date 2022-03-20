@@ -17,7 +17,10 @@ import kotlin.collections.ArrayList
 import kotlin.random.Random
 
 class LotrApi {
+    //classe regroupant les appels API de l'application
+
     suspend fun getRandomQuote(movie_id : String): Quote {
+        //récupération d'une citation aléatoire d'un film choisi
         Log.e(movie_id, "GET RANDOM QUOTE")
         val client = HttpClient(CIO) {
             install(JsonFeature) {
@@ -41,6 +44,7 @@ class LotrApi {
     }
 
     suspend fun getMovies(): MutableList<Movie>? {
+        //récupération de la liste des films
         val client = HttpClient(CIO) {
             install(JsonFeature) {
                 serializer = KotlinxSerializer(kotlinx.serialization.json.Json {
@@ -63,11 +67,13 @@ class LotrApi {
         listMovies.removeAt(0)
         listMovies.removeAt(0)
         Collections.swap(listMovies, 0, 1)
+        //affichage uniquement des films de la trilogie du Seigneur des Anneaux
         client.close()
         return listMovies
     }
 
     suspend fun getCharacterById(character_id : String) : LOTRCharacter {
+        //récupération du nom du personnage
         val client = HttpClient(CIO) {
             install(JsonFeature) {
                 serializer = KotlinxSerializer(kotlinx.serialization.json.Json {

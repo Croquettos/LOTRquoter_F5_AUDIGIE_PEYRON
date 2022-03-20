@@ -18,6 +18,7 @@ class MovieViewModel : ViewModel() {
     }
 
     suspend fun loadMovies() {
+        //appel API pour la liste des films
         selected.value = lotrapi.getMovies()
     }
 

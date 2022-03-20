@@ -38,6 +38,7 @@ class MovieFragment : Fragment() {
     }
 
     fun gotoQuote(movie_id : String) {
+        //passage du premier écran au second écran
         Log.e(movie_id, "GO TO QUOTE")
         val quoteViewModel: QuoteViewModel by activityViewModels()
         quoteViewModel.movie_id.value = movie_id

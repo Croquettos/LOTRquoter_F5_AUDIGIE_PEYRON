@@ -24,6 +24,7 @@ class QuoteViewModel : ViewModel() {
     }
 
     suspend fun loadQuote(movie_id : String) {
+        //appel API pour la citation
         Log.e(movie_id, "LOAD QUOTE")
         selected.value = lotrapi.getRandomQuote(movie_id)
         //selected.value = Quote("Test", "Test", "Test", "Test")
@@ -31,6 +32,7 @@ class QuoteViewModel : ViewModel() {
     }
 
     suspend fun loadCharacter(character_id : String) {
+        //appel API pour le personnage
         Log.e(character_id, "LOAD CHARACTER")
         character.value = lotrapi.getCharacterById(character_id)
         Log.e(character.value!!.name, "LOAD CHARACTER")

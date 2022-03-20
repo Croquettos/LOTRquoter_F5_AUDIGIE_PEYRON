@@ -43,11 +43,4 @@ class MovieFragment : Fragment() {
         quoteViewModel.movie_id.value = movie_id
         view?.let { Navigation.findNavController(it).navigate(R.id.action_movieFragment_to_quoteFragment) }
     }
-
-    /*override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        movieViewModel = ViewModelProvider(this).get(MovieViewModel::class.java)
-        // TODO: Use the ViewModel
-    }*/
-
 }

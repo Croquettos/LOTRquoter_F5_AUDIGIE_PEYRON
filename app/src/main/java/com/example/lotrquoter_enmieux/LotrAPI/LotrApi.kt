@@ -58,7 +58,10 @@ class LotrApi {
         }
         listMovies.removeAt(0)
         listMovies.removeAt(0)
-        Collections.swap(listMovies, 3, 4)
+        listMovies.removeAt(0)
+        listMovies.removeAt(0)
+        listMovies.removeAt(0)
+        Collections.swap(listMovies, 0, 1)
         client.close()
         return listMovies
     }

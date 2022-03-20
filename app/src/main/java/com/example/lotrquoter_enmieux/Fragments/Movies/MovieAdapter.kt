@@ -11,8 +11,8 @@ import com.example.lotrquoter_enmieux.DTOs.Movie
 import com.example.lotrquoter_enmieux.R
 
 class MovieAdapter(private val mList: ArrayList<Movie>,
-                    private val fragment: MovieFragment
-                    ) : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
+                   private val fragment: MovieFragment
+                   ) : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
 
     /**
      * Provide a reference to the type of views that you are using
@@ -20,6 +20,7 @@ class MovieAdapter(private val mList: ArrayList<Movie>,
      */
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val textView: TextView = view.findViewById(R.id.textView)
+        val viewGroup = view
     }
 
     // Create new views (invoked by the layout manager)
@@ -27,7 +28,6 @@ class MovieAdapter(private val mList: ArrayList<Movie>,
         // Create a new view, which defines the UI of the list item
         val view = LayoutInflater.from(viewGroup.context)
             .inflate(R.layout.card_view_layout, viewGroup, false)
-
         return ViewHolder(view)
     }
 
@@ -35,6 +35,12 @@ class MovieAdapter(private val mList: ArrayList<Movie>,
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val movie = mList[position]
         viewHolder.textView.text = movie.name
+
+        viewHolder.viewGroup.setOnClickListener {
+            Log.e(movie.name, "ON CLICK")
+            fragment.gotoQuote(movie.name)
+        }
+
     }
 
     override fun getItemCount() = mList.size

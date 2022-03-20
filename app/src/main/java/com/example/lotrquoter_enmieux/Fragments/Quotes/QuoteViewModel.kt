@@ -1,5 +1,6 @@
 package com.example.lotrquoter_enmieux.Fragments.Quotes
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -19,5 +20,6 @@ class QuoteViewModel : ViewModel() {
 
     suspend fun loadQuote() {
         selected.value = lotrapi.getRandomQuote(_movie.value!!._id)
+        Log.e(selected.value.toString(), "LOAD QUOTE")
     }
 }

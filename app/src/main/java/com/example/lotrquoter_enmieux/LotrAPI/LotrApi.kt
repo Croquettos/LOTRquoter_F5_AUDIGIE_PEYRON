@@ -18,6 +18,7 @@ import kotlin.random.Random
 
 class LotrApi {
     suspend fun getRandomQuote(movie : String): Quote {
+        Log.e(movie, "GET RANDOM QUOTE")
         val client = HttpClient(CIO) {
             install(JsonFeature) {
                 serializer = KotlinxSerializer(kotlinx.serialization.json.Json {
@@ -30,6 +31,7 @@ class LotrApi {
             headers { append("Authorization", "Bearer Yz6TGM2TfN4i91hIs5NS") }
         }
         client.close()
+        Log.e(docsQuotes.docs[Random.nextInt(docsQuotes.docs.size)].dialog, "GET RANDOM QUOTE")
         return docsQuotes.docs[Random.nextInt(docsQuotes.docs.size)]
     }
 

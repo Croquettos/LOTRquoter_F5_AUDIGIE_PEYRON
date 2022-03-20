@@ -11,6 +11,7 @@ import kotlinx.coroutines.launch
 class MovieViewModel : ViewModel() {
 
     val selected = MutableLiveData<MutableList<Movie>>()
+    val movie = MutableLiveData<Movie>()
     private val lotrapi = LotrApi()
 
     init {

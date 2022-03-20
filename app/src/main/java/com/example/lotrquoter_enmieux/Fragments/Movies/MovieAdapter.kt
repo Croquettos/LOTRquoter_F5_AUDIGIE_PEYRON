@@ -41,6 +41,7 @@ class MovieAdapter(private val mList: ArrayList<Movie>,
 
     fun updateData(i: MutableLiveData<MutableList<Movie>>){
         Log.e(i.value.toString(), "UPDATE DATA")
-        i.value?.let { mList.addAll(it) }
+        i.value?.let { mList.addAll(it)
+        Log.e("ADD " + it, "UPDATE DATA")}
     }
 }

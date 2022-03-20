@@ -17,7 +17,7 @@ import io.ktor.util.*
 import kotlin.random.Random
 
 class LotrApi {
-    suspend fun getRandomQuote(movie : String, character : String): Quote {
+    suspend fun getRandomQuote(movie : String): Quote {
         val client = HttpClient(CIO) {
             install(JsonFeature) {
                 serializer = KotlinxSerializer(kotlinx.serialization.json.Json {
@@ -25,15 +25,12 @@ class LotrApi {
                     isLenient = true
                 })
             }
-            defaultRequest {
-                header("Authorization", "Bearer " + "ib4MK83OGO3dknYqM2P8")
-            }
         }
-        val docsQuotes : DocsQuote = client.get("https://the-one-api.dev/v2/character/" + character + "/quote")
+        val docsQuotes : DocsQuote = client.get("https://the-one-api.dev/v2/movie/" + movie + "/quote") {
+            headers { append("Authorization", "Bearer Yz6TGM2TfN4i91hIs5NS") }
+        }
         client.close()
-
         return docsQuotes.docs[Random.nextInt(docsQuotes.docs.size)]
-        
     }
 
     suspend fun getMovies(): MutableList<Movie>? {
@@ -47,17 +44,15 @@ class LotrApi {
             }
         }
         val docsMovie : DocsMovie = client.get("https://the-one-api.dev/v2/movie") {
-            headers { append("Authorization", "Bearer ib4MK83OGO3dknYqM2P8") }
+            headers { append("Authorization", "Bearer Yz6TGM2TfN4i91hIs5NS") }
         }
-        val listMovies : MutableList<Movie>? = null
+        var listMovies : MutableList<Movie> = ArrayList()
         docsMovie.docs.forEach {
-            listMovies?.add(it)
-            Log.e(it.name, "GET MOVIES")
+            listMovies!!.add(it)
         }
+        listMovies.removeAt(0)
+        listMovies.removeAt(0)
         client.close()
         return listMovies
-    }
-    suspend fun getCharactersFromMovie(movie : String) {
-
     }
 }

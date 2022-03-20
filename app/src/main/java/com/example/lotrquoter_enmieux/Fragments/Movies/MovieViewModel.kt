@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 
 class MovieViewModel : ViewModel() {
 
-    var selected = MutableLiveData<MutableList<Movie>>()
+    val selected = MutableLiveData<MutableList<Movie>>()
     private val lotrapi = LotrApi()
 
     init {
@@ -20,6 +20,5 @@ class MovieViewModel : ViewModel() {
 
     suspend fun loadMovies() {
         selected.value = lotrapi.getMovies()
-        Log.e(selected.value.toString(), "SELECTED VALUE")
     }
 }
